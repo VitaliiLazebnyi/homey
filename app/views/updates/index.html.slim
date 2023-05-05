@@ -1,0 +1,36 @@
+doctype html
+html
+  head
+    title Updates list
+
+  body
+    h1 Update
+
+    = form_with(model: Update, url: project_updates_path(@project), html: { id: 'comment' }) do |f|
+      = f.text_area :text, rows: 5
+      = f.hidden_field :kind, value: :comment
+      = f.submit :submit
+
+    div.status
+      div.title Current project status:
+      div.text = @project.status
+      div.buttons_block
+        - Project.statuses.keys.each do |status|
+          = form_with(model: Update, url: project_updates_path(@project), html: { id: status }) do |f|
+            = f.hidden_field :text, value: "Project status changed to '#{status}'"
+            = f.hidden_field :kind, value: :change_status
+            = f.hidden_field :status, value: status
+            = f.submit status
+
+    p
+      = link_to 'Back to Projects list', projects_path, id: 'change_status_link'
+
+    hr
+
+    h1 History of changes
+    #updates
+      - @project.updates.order(id: :desc).each do |update|
+        p
+          div.update
+            div.date = update.created_at
+            div.text = update.text

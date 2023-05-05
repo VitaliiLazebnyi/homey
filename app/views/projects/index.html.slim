@@ -1,0 +1,14 @@
+doctype html
+html
+  head
+    title Projects list
+
+  body
+    h1 Projects
+
+    #projects
+      - @projects.each do |project|
+        p
+          div.project
+            div.conversation id="conversation-#{project.id}"
+              = link_to project.title, project_updates_path(project), class: 'thread_link'

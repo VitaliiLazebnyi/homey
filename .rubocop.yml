@@ -1,0 +1,19 @@
+require:
+  - rubocop
+  - rubocop-rails
+  - rubocop-rspec
+  - rubocop-performance
+
+AllCops:
+  NewCops: enable
+
+Style/Documentation:
+  Enabled: false
+
+RSpec/ExampleLength:
+  CountAsOne: ['array', 'heredoc']
+  Max: 10
+
+RSpec/ExpectActual:
+  Exclude:
+    - 'spec/routes/*_spec.rb'
